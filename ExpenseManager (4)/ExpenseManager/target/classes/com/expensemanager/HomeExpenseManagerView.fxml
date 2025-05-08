@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.AreaChart?>
+
+<BorderPane prefHeight="300.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.expensemanager.controller.HomeController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="18" styleClass="greeting-bar">
+            <padding>
+                <Insets bottom="0" left="0" right="0" top="0" />
+            </padding>
+            <Label styleClass="app-title-label" text="Lyna" />
+            <Label fx:id="greetingLabel" styleClass="greeting-text-bold" text="Xin chào, ..." />
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" spacing="14">
+                <StackPane fx:id="avatarCircleModern" styleClass="avatar-circle-modern">
+                    <Label styleClass="avatar-icon-modern" text="👤" />
+                </StackPane>
+                <Button fx:id="addExpenseButton" styleClass="add-expense-btn-modern" text="+" />
+                <Button fx:id="refreshButton" styleClass="refresh-btn-modern" text="Làm mới" />
+            </HBox>
+        </HBox>
+    </top>
+    
+    <left>
+        <VBox prefWidth="250.0" spacing="24" styleClass="sidebar" alignment="CENTER">
+            <padding>
+                <Insets bottom="24" left="18" right="18" top="24" />
+            </padding>
+            <VBox spacing="16" styleClass="menu-group" alignment="CENTER">
+                <Label styleClass="menu-group-title" text="QUẢN LÝ" />
+                <Button onAction="#handleImportFromExcel" styleClass="sidebar-button" text="Nhập từ file" prefWidth="200" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Text styleClass="icon-text" text="↓" />
+                    </graphic>
+                </Button>
+            </VBox>
+            <VBox spacing="16" styleClass="menu-group" alignment="CENTER">
+                <Label styleClass="menu-group-title" text="XEM CHI TIẾT" />
+                <MenuButton styleClass="sidebar-button" text="Xem theo thời gian" prefWidth="200" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Text styleClass="icon-text" text="⌚" />
+                    </graphic>
+                    <items>
+                        <MenuItem onAction="#handleViewAll" text="Xem tất cả" />
+                        <MenuItem onAction="#handleViewByDate" text="Xem theo ngày" />
+                        <MenuItem onAction="#handleViewByDateRange" text="Xem theo khoảng ngày" />
+                    </items>
+                </MenuButton>
+                <MenuButton styleClass="sidebar-button" text="Xem theo danh mục" prefWidth="200" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Text styleClass="icon-text" text="📋" />
+                    </graphic>
+                    <items>
+                        <MenuItem onAction="#handleViewByCategory" text="Xem theo danh mục" />
+                    </items>
+                </MenuButton>
+            </VBox>
+            <VBox spacing="16" styleClass="menu-group" alignment="CENTER">
+                <Label styleClass="menu-group-title" text="SẮP XẾP" />
+                <MenuButton styleClass="sidebar-button" text="Sắp xếp theo thời gian" prefWidth="200" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Text styleClass="icon-text" text="⏱" />
+                    </graphic>
+                    <items>
+                        <MenuItem onAction="#handleSortByDateDesc" text="Mới nhất trước" />
+                        <MenuItem onAction="#handleSortByDateAsc" text="Cũ nhất trước" />
+                    </items>
+                </MenuButton>
+                <MenuButton styleClass="sidebar-button" text="Sắp xếp theo số tiền" prefWidth="200" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Text styleClass="icon-text" text="💰" />
+                    </graphic>
+                    <items>
+                        <MenuItem onAction="#handleSortByAmountDesc" text="Cao nhất trước" />
+                        <MenuItem onAction="#handleSortByAmountAsc" text="Thấp nhất trước" />
+                    </items>
+                </MenuButton>
+            </VBox>
+            <VBox spacing="16" styleClass="menu-group" alignment="CENTER">
+                <Label styleClass="menu-group-title" text="THỐNG KÊ" />
+                <Button onAction="#handleShowDailyChart" styleClass="sidebar-button" text="Thống kê theo ngày" prefWidth="200" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Text styleClass="icon-text" text="📊" />
+                    </graphic>
+                </Button>
+                <Button onAction="#handleShowMonthlyChart" styleClass="sidebar-button" text="Thống kê theo khoảng" prefWidth="200" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Text styleClass="icon-text" text="📈" />
+                    </graphic>
+                </Button>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS" />
+            <Button onAction="#deleteAllExpense" styleClass="sidebar-button-danger" text="Xóa toàn bộ dữ liệu" prefWidth="200" alignment="CENTER_LEFT">
+                <graphic>
+                    <Text styleClass="icon-text" text="🗑" />
+                </graphic>
+            </Button>
+        </VBox>
+    </left>
+    
+    <center>
+        <VBox spacing="20" styleClass="main-content">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            
+            <HBox fx:id="inputBox" spacing="10" alignment="CENTER_LEFT" visible="false" managed="false">
+                <TextField fx:id="textFiel_Amount" styleClass="input-field" promptText="Nhập số tiền"/>
+                <TextField fx:id="textFiel_Category" styleClass="input-field" promptText="Nhập danh mục"/>
+                <DatePicker fx:id="DatePicker" styleClass="date-picker"/>
+                <Button fx:id="saveButton" text="Lưu" onAction="#handleSaveExpense"/>
+                <Button fx:id="cancelButton" text="Hủy" onAction="#handleCancelInput"/>
+            </HBox>
+            
+            <HBox spacing="20" VBox.vgrow="ALWAYS">
+                <VBox spacing="10" alignment="CENTER" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    <AreaChart fx:id="trafficChart" title="Biểu đồ chi tiêu theo ngày" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" minWidth="0" maxWidth="Infinity" maxHeight="Infinity">
+                        <xAxis>
+                            <CategoryAxis fx:id="trafficXAxis" label="Ngày" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis fx:id="trafficYAxis" label="Tổng chi tiêu" />
+                        </yAxis>
+                    </AreaChart>
+                    <Label fx:id="compareLabel" alignment="CENTER" VBox.vgrow="NEVER" />
+                </VBox>
+                <TableView fx:id="expenseTableView" styleClass="modern-table" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" prefWidth="350">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+                <columns>
+                    <TableColumn id="colDate" fx:id="dateColumn" prefWidth="200.0" text="Ngày" />
+                    <TableColumn id="colAmount" fx:id="amountColumn" prefWidth="150.0" text="Số tiền" />
+                    <TableColumn id="colCategory" fx:id="categoryColumn" prefWidth="250.0" text="Lý do" />
+                </columns>
+            </TableView>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<TabPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.expensemanager.controller.StatisticsController" style="-fx-padding: 32; -fx-background-color: white;">
+    <tabs>
+        <Tab text="Biểu đồ tròn">
+            <VBox alignment="CENTER" spacing="18" style="-fx-background-color: white;">
+                <Label text="THỐNG KÊ THEO DANH MỤC" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1976d2;"/>
+                <PieChart fx:id="pieChart" prefHeight="340" prefWidth="420"/>
+            </VBox>
+        </Tab>
+        <Tab text="Biểu đồ cột">
+            <VBox alignment="CENTER" spacing="18" style="-fx-background-color: white;">
+                <Label text="THỐNG KÊ CỘT THEO DANH MỤC" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1976d2;"/>
+                <BarChart fx:id="barChart" prefHeight="340" prefWidth="600">
+                    <xAxis>
+                        <CategoryAxis fx:id="barCategoryAxis" label="Danh mục"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="barNumberAxis" label="Số tiền"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </Tab>
+        <Tab text="Biểu đồ đường">
+            <VBox alignment="CENTER" spacing="18" style="-fx-background-color: white;">
+                <Label text="THỐNG KÊ ĐƯỜNG THEO NGÀY" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1976d2;"/>
+                <LineChart fx:id="lineChart" prefHeight="340" prefWidth="600">
+                    <xAxis>
+                        <CategoryAxis fx:id="lineCategoryAxis" label="Thời gian"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="lineNumberAxis" label="Số tiền"/>
+                    </yAxis>
+                </LineChart>
+            </VBox>
+        </Tab>
+    </tabs>
+</TabPane> 

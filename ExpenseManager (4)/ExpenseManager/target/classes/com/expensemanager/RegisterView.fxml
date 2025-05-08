@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="20" stylesheets="@styles.css" styleClass="login-container"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.expensemanager.controller.RegisterController">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <VBox alignment="CENTER" styleClass="login-form" spacing="15">
+        <Text styleClass="login-header" text="Đăng ký tài khoản"/>
+        
+        <VBox spacing="5">
+            <Label text="Tên đăng nhập"/>
+            <TextField fx:id="usernameField" promptText="Nhập tên đăng nhập"/>
+        </VBox>
+        
+        <VBox spacing="5">
+            <Label text="Mật khẩu"/>
+            <PasswordField fx:id="passwordField" promptText="Nhập mật khẩu"/>
+        </VBox>
+        
+        <VBox spacing="5">
+            <Label text="Xác nhận mật khẩu"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Nhập lại mật khẩu"/>
+        </VBox>
+
+        <Button fx:id="registerButton" styleClass="login-button" text="Đăng ký" 
+                onAction="#handleRegister" prefWidth="200"/>
+        
+        <HBox alignment="CENTER" spacing="10">
+            <Label text="Đã có tài khoản?"/>
+            <Hyperlink onAction="#handleBackToLogin" text="Đăng nhập"/>
+        </HBox>
+        
+        <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+    </VBox>
+</VBox> 

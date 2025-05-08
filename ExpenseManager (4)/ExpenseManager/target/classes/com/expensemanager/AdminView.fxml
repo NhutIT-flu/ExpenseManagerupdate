@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.expensemanager.controller.AdminController">
+    <left>
+        <TableView fx:id="userTableView" prefWidth="250">
+            <columns>
+                <TableColumn fx:id="usernameColumn" text="Tài khoản"/>
+                <TableColumn fx:id="roleColumn" text="Quyền"/>
+            </columns>
+        </TableView>
+    </left>
+    <center>
+        <TableView fx:id="expenseTableView">
+            <columns>
+                <TableColumn fx:id="dateColumn" text="Ngày"/>
+                <TableColumn fx:id="amountColumn" text="Số tiền"/>
+                <TableColumn fx:id="categoryColumn" text="Lý do"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane> 
